@@ -2,16 +2,18 @@
 
 import axios from "axios";
 import {ref} from "vue";
-import {Message} from "@/message";
+import {Message} from "@/interface/message";
 
 
 const url = "http://127.0.0.1:11434/api/generate"
 const prompt = ref("")
-const messages : Message[] = []
+const messages = ref<Message[]>([])
 
 async function submitPrompt(){
 
-  messages.push({
+
+
+  messages.value.push({
     "content": prompt.value,
     "author": "user"
   });
@@ -23,7 +25,7 @@ async function submitPrompt(){
   }).then((response) => {
     console.log(response.data.response)
 
-    messages.push({
+    messages.value.push({
       "content": response.data.response,
       "author": "ia"
     })
@@ -38,22 +40,25 @@ async function submitPrompt(){
 </script>
 
 <template>
-  <h1>Pose une question </h1>
-  <div class="">
-    <form action="" method="" @submit.prevent="submitPrompt">
-      <input type="text" v-model="prompt">
-      <button type="submit">Send</button>
+  <div class="mb-3">
+    <form action="" method="" class="input-group" @submit.prevent="submitPrompt">
+      <input type="text" v-model="prompt" class="form-control" >
+        <button type="submit" class="btn btn-success">Send</button>
     </form>
+
   </div>
   <div v-for="message in messages">
-    <div class="card">
-      <p>{{message.content}}</p>
+    <div class="mb-2">
+      <p class="pb-0 mb-0">{{message.author}} : </p>
+      <p class="fw-bold">{{message.content}}</p>
     </div>
   </div>
 
 </template>
 
 <style scoped>
-
+.test{
+  color:cornflowerblue;
+}
 
 </style>
