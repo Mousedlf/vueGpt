@@ -11,8 +11,6 @@ const messages = ref<Message[]>([])
 
 async function submitPrompt(){
 
-
-
   messages.value.push({
     "content": prompt.value,
     "author": "user"
@@ -32,33 +30,32 @@ async function submitPrompt(){
   })
 
   prompt.value = ""; //clear input
-
-
 }
 
 
 </script>
 
 <template>
-  <div class="mb-3">
-    <form action="" method="" class="input-group" @submit.prevent="submitPrompt">
-      <input type="text" v-model="prompt" class="form-control" >
-        <button type="submit" class="btn btn-success">Send</button>
-    </form>
+  <div class="p-5">
 
-  </div>
-  <div v-for="message in messages">
-    <div class="mb-2">
-      <p class="pb-0 mb-0">{{message.author}} : </p>
-      <p class="fw-bold">{{message.content}}</p>
+    <div class="mb-3">
+      <form action="" method="" class="input-group" @submit.prevent="submitPrompt">
+        <input type="text" v-model="prompt" class="form-control" >
+        <button type="submit" class="btn btn-success">Send</button>
+      </form>
+
     </div>
+    <div v-for="message in messages">
+      <div class="mb-2">
+        <p class="pb-0 mb-0">{{message.author}} : </p>
+        <p class="fw-bold">{{message.content}}</p>
+      </div>
+    </div>
+
   </div>
 
 </template>
 
 <style scoped>
-.test{
-  color:cornflowerblue;
-}
 
 </style>
